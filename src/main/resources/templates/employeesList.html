@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Employee Database</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Employees</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Teams</th>
+        <th></th>
+    </tr>
+
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.getName()}"></td>
+        <td>
+    <span th:each="team, iterStat : ${employee.getTeamList()}">
+    <span th:text="${team.getLabel()}"/><th:block th:if="${!iterStat.last}">,</th:block>
+    </span>
+        </td>
+        <td>
+            <a th:href="@{/employee/{id}(id=${employee.getId()})}">View</a>
+        </td>
+    </tr>
+</table>
+<hr/>
+<form th:action="@{/employees}" method="post" enctype="multipart/form-data">
+    <div>
+        Name : <input name="name"/>
+    </div>
+    <div>
+        <input type="submit" value="Add Employee" name="button"/>
+    </div>
+</form>
+</body>
+</html>
