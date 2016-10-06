@@ -6,5 +6,5 @@ import org.webonise.springmvc.Entities.Team;
 import java.util.List;
 
 public interface TeamRepository extends CrudRepository<Team, Integer> {
-    public List<Team> findByLabel(String team);
+    List<Team> findByLabel(String label);
 }

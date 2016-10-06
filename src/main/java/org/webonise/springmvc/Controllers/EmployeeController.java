@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.webonise.springmvc.Entities.Employee;
 import org.webonise.springmvc.Entities.Team;
 import org.webonise.springmvc.Repositories.EmployeeRepository;
@@ -22,10 +23,10 @@ public class EmployeeController {
     TeamRepository teamRepository;
 
     @RequestMapping("/employees/{id}")
-    public String employee(@PathVariable int id, Model model) {
+    public ModelAndView employee(@PathVariable int id, Model model) {
         model.addAttribute("employee", employeeRepository.findOne(id));
         model.addAttribute("teams", teamRepository.findAll());
-        return "employee";
+        return new ModelAndView("employee");
     }
 
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
@@ -46,7 +47,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/{id}/teams", method = RequestMethod.POST)
-    public String addEmployeeToTeam(@PathVariable int id, @RequestParam int teamId, Model model) {
+    public ModelAndView addEmployeeToTeam(@PathVariable int id, @RequestParam int teamId, Model model) {
         Team team = teamRepository.findOne(teamId);
         Employee employee = employeeRepository.findOne(id);
 
@@ -58,10 +59,10 @@ public class EmployeeController {
             employeeRepository.save(employee);
             model.addAttribute("employee", employeeRepository.findOne(id));
             model.addAttribute("teams", teamRepository.findAll());
-            return "redirect:/employee/" + employee.getId();
+            return new ModelAndView("redirect:/employee/" + employee.getId());
         }
 
         model.addAttribute("employees", employeeRepository.findAll());
-        return "redirect:/employees";
+        return new ModelAndView("redirect:/employees");
     }
 }

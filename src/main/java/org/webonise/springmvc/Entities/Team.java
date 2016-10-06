@@ -14,7 +14,6 @@ public class Team {
     private String label;
 
     public Team() {
-        super();
     }
 
     public Team(String label) {

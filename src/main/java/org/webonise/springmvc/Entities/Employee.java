@@ -19,7 +19,7 @@ public class Employee {
     private List<Team> teams;
 
     public Employee() {
-        super();
+
     }
 
     public Employee(String name, List<Team> teams) {
