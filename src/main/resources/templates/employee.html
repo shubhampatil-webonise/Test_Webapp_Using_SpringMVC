@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Employee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<h1>Employee</h1>
+Name: <b th:text="${employee.getName()}"></b>
+Teams:
+<span th:each="team: ${employee.getTeamList()}">
+    <br/>&nbsp;&nbsp;<span th:text="${team.getLabel()}"></span>
+</span>
+
+<form th:action="@{/employee/{id}/teams(id=${employee.getId()})}" method="post" enctype="multipart/form-data">
+    <select name="teamId">
+        <option th:each="team : ${teams}" th:value="${team.getId()}">Team</option>
+    </select>
+    <input type="submit" value="Add Team"/>
+</form>
+</body>
+</html>
